@@ -1,0 +1,51 @@
+SYNTAX PARSES, EXECUTION CONTEXTS AND LEXICAL ENVIORNMENTS
+
+syntax parser- a program that reads your code and detemrines
+what it does and if its grammar is valid
+someone else wrote a program to translate it for the computer
+so you have your code and then there is a program that converts this into
+computer instructions to hardware readable code
+syntax parser goes through character by character 
+
+LEXICAL ENVIORNMENT
+where something sits physically in the code you write
+where you write something is important 
+a variable sits lexically inside a function  
+
+EXECUTION CONTEXT
+a wrapper to help manage the code that is running
+there are lots of lexical environments- the one currently running is managed 
+via eecution contexts
+
+Objects are important
+name/value pairs
+a name value pair is a name which maps to a unique value
+the name may be defined more than once, but can only have one
+value in any given context
+that value may be more name/value pairs
+
+eg Address = '100 Main St';
+
+an object is just a collection of name/value pairs
+that value might be another object
+eg
+
+Address:
+    {
+        Street: 'Main',
+        Apartment: 
+            {
+                Floor: 3,
+                Number: 301
+            }
+    }
+
+THE GLOBAL ENVIORNMENT AND THE GLOBAL OBJECT
+whenever code run inside js its run inside an execution context
+meaning a wrapper that the js engine 
+base execution context is the global execution context
+global- the thing that is accessible to eveything in your code (its global)
+
+the global execution context creates two things for you:
+    1- global object
+    2- 'this'
