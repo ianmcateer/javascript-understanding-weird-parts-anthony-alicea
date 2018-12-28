@@ -1,0 +1,33 @@
+//---------------------------------------//
+TYPES AND OPERATORS
+
+js is dynamically typed language- 
+you dont tell the engine what type of data a variable holds,
+it figures it out while your code is running
+
+variables can hold different types of data because its all figured out 
+during execution phase
+
+static type eg bool isNew = 'hello' // an error
+
+//---------------------------------------//
+PRIMITIVE TYPES
+a type of data that represents a single value 
+six types in javascript 
+
+undefined represents lack of existence (shouldnt use this to set a variable)
+null also represents lack of existence - better to use this to set a variable
+boolean - true or false
+number - floating point number 
+string = sequence of characters
+symbol - es6 
+
+
+//---------------------------------------//
+OPERATORS
+a special function that is synitactially (written) differen
+generally take two parameters and return one result 
+
+eg var a = 3 + 4;
+
++ is an operator which is actually a function  
