@@ -215,3 +215,83 @@ in the case of function b its outer environemnt is the gloabl execution context
 what outer environemnt? the lexical environemnt - where something is written physically
 have to look at where does function b sit lexically 
 it sits on top of the gloabl environemnt 
+
+when you ask for a variable in an exeuciton context but cant find that variable
+it will look in the outer reference which depends on where the function sits lexically 
+
+
+scope chain- those links of outer lexical enviornment references
+will look down the scope chain 
+
+if put function b inside a then changed b's lexical enviornment is different
+b's outer reference is not a
+when ask for myVar it goes to a this time instead of global
+
+function a(){
+    var myVar = 2
+    function b(){
+        console.log(myVar)
+    }      
+    b()
+}
+var myVar = 1
+a()
+
+
+//-----------------------------------------------------//
+ES6 let and const 
+let can be used instead of var now 
+let is block scoped
+can declare a variable- but not allowed to use it until it gets executed
+
+
+//-----------------------------------------------------//
+WHAT ABOUT ASYNCHRONOUS CALLBACKS?
+
+asynchronous - more than one at a time 
+think about js engine itself- doesnt usually exist by itself 
+there are other negines outside js engine
+eg the rendering engine, http request
+js has hooks where it can talk to these other engines 
+
+exeuction contexts created when functions called
+another list sits isndie js engine called the event que
+filled with notifications of events
+
+eg a click event gets placed on the que  
+
+the event que only gets looked at when the eecution stack is empty
+so it only gets processed when the exeucion stack is empty
+
+const printHello = () => {
+  console.log('hello')
+}
+setTimeout(printHello, 0);
+console.log('me first')
+
+// so creates a timer in web browser api- they are not part of javascript - pass the 0 and also the reference to the printHello function 
+// has a column complete or not
+// its been set up now so we continue with execution thread
+
+// get the console log logging me first 
+// in the background our timer compeltes in the background
+// event loop checks if the call stack is emppty- when so 
+it pshes call to printhello function to call stack and it executes
+
+// long running function
+function waitThreeSeconds() {
+    var ms = 3000 + new Date().getTime();
+    while (new Date() < ms){}
+    console.log('finished function');
+}
+
+function clickHandler() {
+    console.log('click event!');   
+}
+
+// listen for the click event
+document.addEventListener('click', clickHandler);
+
+
+waitThreeSeconds();
+console.log('finished execution');
