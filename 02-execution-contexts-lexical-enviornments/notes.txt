@@ -145,7 +145,7 @@ its just a stack- one on top of the other
 the one on top is the one currently running 
 if have another funciton () then create another execution context 
 
-every function creates a new execution context 
+!!!every function creates a new execution context 
 
 when finishes gets popped off the stack  
 
@@ -174,6 +174,8 @@ new exeuciton context is created for a
 then the myVar = 2 is put into a's exeuciton context environment
 
 !!!! every execution context has its own variable environemnt
+
+
 then hits b() and new exeuciton context created - gets pushed onto the stack
 inside b var myVar is set to undeifned
 
@@ -184,3 +186,32 @@ each myVar is distinct
 
 //-----------------------------------------------------//
 THE SCOPE CHAIN
+
+function b(){
+    console.log(myVar)
+}
+function a(){
+    var myVar = 2
+    b()
+}
+var myVar = 1
+a()
+
+what will happen isndie b when executed?
+myVar is not defined inside b
+you will see 1 in the console- the value that was sitting at the global level
+
+when we request a variable js does more than just look at the variable enviornment
+of the currently executing context
+
+remmeebr every execution context gets:
+    1- 'this'
+    2- the reference to the outer environemnt
+
+every execution context has a reference to its outer environemnt 
+what is its outer environemnt?
+in the case of function b its outer environemnt is the gloabl execution context 
+
+what outer environemnt? the lexical environemnt - where something is written physically
+have to look at where does function b sit lexically 
+it sits on top of the gloabl environemnt 
