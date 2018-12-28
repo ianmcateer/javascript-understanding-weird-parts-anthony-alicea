@@ -1,0 +1,25 @@
+<html>
+  <head> </head>
+  <body>
+    <script>
+      function b(){
+        var myVar
+      }
+      function a(){
+        var myVar = 2
+        b()
+      }
+      var myVar = 1
+      a()
+    </script>
+  </body>
+</html>
+
+
+<!-- 
+OUTPUT:
+called b
+undefined 
+
+this is called hoisting
+-->

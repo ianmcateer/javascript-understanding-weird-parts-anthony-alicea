@@ -49,3 +49,107 @@ global- the thing that is accessible to eveything in your code (its global)
 the global execution context creates two things for you:
     1- global object
     2- 'this'
+
+
+this in the browser points to the window object
+this refers to the window object
+
+if running js in node different global object
+
+global: 'not inside a function'  
+
+var a = 'hello world'
+// available in global 
+
+//funciton b available in the global object
+function b() {
+
+}
+
+a and window.a are the same thing 
+
+//-----------------------------------------------------//
+CREATION AND HOISTING
+
+b();
+console.log(a)
+var a = 'hello world';
+
+function b() {
+    console.log('called b')
+}
+
+OUTPUT:
+called b
+undefined
+
+even though the function was below it still ran
+this is called hoisting  
+
+execution context is created in two phases
+first phase is creation phase
+global object setup and 'this' is created
+outer environment created
+in this creation phase recogniss wher eyou created variables and functions
+sets up memory space for variables and functions - 'hoisting'
+before code executed line by line js already set aside memeory space 
+for the variables and funcitons you have created in the code 
+
+when it comes to variables; function entirely is store din memory space
+but when sets up memeory space for vairable a wont know what its value is 
+until it  starts executing this code so instead puts a placeholder 
+undeifned meaning idk what this value is yet 
+all variables initially set to undefined functions set in memory in their entirety
+
+NOTE: with let and const get reference error
+let and const are hoisted but difference is they stay uninitialised
+(not like var where they get initialised as undeifned)
+they will only get initialised when they get evaluated 
+
+
+JS AND UNDEFINED 
+var a;
+console.log(a)
+
+// get undefined- this is a special value that js has ini it, means the variable hasnt been set
+
+//-----------------------------------------------------//
+EXECUTION CONTEXT
+
+now runs the code you have wirtten line by line 
+js is single threaded- one command at a time
+when dealing with browsers js isnt the only thing happening in the browser
+
+//-----------------------------------------------------//
+EXECUTION STACK
+invocation- is js by using ()
+
+function b () {
+
+}
+
+function a () {
+    b()
+}
+
+a()
+
+first of all a global execution conext is created
+then compiler will start up and create variable this, global object (window)
+then in creation phase attach these to the window objec
+ie it will set up memory space so b and a will be in memory
+when hits a() it invokes a 
+
+a new execution context is created and placed on the execution stack
+its just a stack- one on top of the other
+the one on top is the one currently running 
+if have another funciton () then create another execution context 
+
+every function creates a new execution context 
+
+when finishes gets popped off the stack  
+
+//-----------------------------------------------------//
+FUNCTIONS CONTEXT AND VARIABLE ENVIRONEMNTS
+variable enviornemnt- just talking about where the vairables live
+where is the variable?
