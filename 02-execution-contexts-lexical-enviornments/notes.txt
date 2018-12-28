@@ -153,3 +153,34 @@ when finishes gets popped off the stack
 FUNCTIONS CONTEXT AND VARIABLE ENVIRONEMNTS
 variable enviornemnt- just talking about where the vairables live
 where is the variable?
+
+function b(){
+    var myVar
+}
+function a(){
+    var myVar = 2
+    b()
+}
+var myVar = 1
+a()
+
+what is value of myVar at any point in time?
+first- global execution context created
+memory space set up
+then code run line by line
+first myVar gets evaluated to 1
+then hits a()
+new exeuciton context is created for a
+then the myVar = 2 is put into a's exeuciton context environment
+
+!!!! every execution context has its own variable environemnt
+then hits b() and new exeuciton context created - gets pushed onto the stack
+inside b var myVar is set to undeifned
+
+SCOPE- where are we able to see the variable?
+here each variable defined inside its own execution context 
+because its inside a function
+each myVar is distinct 
+
+//-----------------------------------------------------//
+THE SCOPE CHAIN
