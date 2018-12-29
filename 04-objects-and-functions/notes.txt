@@ -1,0 +1,42 @@
+other languages objects and funcitons are distinct things
+but in js in many ways they are the same subject 
+
+
+//--------------------------------------------//
+OBJECTS AND THE DOT
+
+how an object lives inside memory
+an object is collection of values with given names 
+an object can have proeprties and methods
+a primitive sitting off of it is called a property eg boolean or number 
+an object could have another object connected to it-
+can also contain functions- methods
+
+so object can contain:
+- primitive "property"
+- object "property"
+- function "method"
+
+these sit in memory
+the core object will have an address and will have a reference to these proeprties
+or methods sitting on object 
+
+var person = new Object();
+
+//going to use computed member access operator ([])
+person["firstname"] = "Tony";
+
+when use the equals tony its going to create that spot in memory and create 
+that spot in memory and give it that name 
+and this object gets a reference to the address of that location in memory
+so it will know where firstName is in memory
+
+this is one way to set and access properties
+go to operator precedence Computer Member Access its very near the top
+[] looks for the proeprty name on the object (can do more)
+
+person["lastname"] = "Alicea"
+var firstNameProperty = "firstname";
+console.log(person[firstNameProperty])
+
+remmeebr [] will take this object and look for a proeprty with this name 

@@ -94,3 +94,71 @@ Coercion is nice but can be dangerous
 
 null and undefined dont coerce to 0 for comparison but do for other circumstances
 eg null < 1 will return true  - causes confusion 
+
+look at strict equality === and !==
+
+=== compares two things but doesnt try coerce the values 
+
+
+look at mdn quality comparisons and sameness
+
+Object.is is coming in the future
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+
+//---------------------------------------//
+EXISTENCE AND BOOLEANS
+
+var a;
+goes to internet and looks for a value 
+
+if (a) {
+    console.log('something is there')
+}
+
+if a is null undefined of "" then if statement will fail because a is nothing  
+
+but if var could end up being 0 then problem bc the code wont run and 
+0 isnt lack of existence but zero evaluates to false 
+
+could do this...
+
+if (a || a === 0) {
+    console.log('somehting is there')
+}
+
+
+//---------------------------------------//
+DEFAULT VALUES 
+
+function greet(name){
+    console.log('hello ' + name)
+}
+
+greet()
+
+
+//helloundefined
+the + when it saw string and undefined it coerced undefine to a string 
+
+es6 intoduces syntax to set default value 
+
+legacy way...
+
+function greet(name){
+    name = name || '<your name here>'
+    console.log('hello ' + name)
+}
+greet('tony')
+greet()
+
+if name is undefined the OR operator 
+
+undefined || 'hello'
+
+it returns hello it returns the value that can be coerced to true
+
+"hi" || "hello" //hi
+
+so can use the OR to say if smth doesnt exists or if its an empty string or null
+|| is run first before =
