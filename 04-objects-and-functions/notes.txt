@@ -40,3 +40,66 @@ var firstNameProperty = "firstname";
 console.log(person[firstNameProperty])
 
 remmeebr [] will take this object and look for a proeprty with this name 
+
+can also use the dot oeprator (precedence table it is second from the top)
+
+//--------------------------------------------//
+OBJECTS AND OBJECT LITERALS
+
+other ways to create new object (not just using the new operator)
+
+var person = new Object();
+ver person = {}
+
+the js engine when its parsing the syntax and comes across {} it assumes
+you are creating an object but can do alot more than that 
+can initialise the object within the curly boys
+
+var person = { 
+    firstname: 'tony', 
+    lastname: 'alicea'
+};
+
+faster to write
+can create an object on the fly when passing to a function...
+
+var Tony ={
+    firstname: 'tony',
+    address: {
+        street: '111 main street',
+        city: 'new york'
+    }
+}
+
+function greet(person){
+    console.log('hi' + person.firstname)
+}
+
+greet(Tony);
+
+could also create the object on the fly
+greet({firstname: 'Mary'})
+
+
+//--------------------------------------------//
+NAMESPACE - to keep variables and functions with same name seperate
+js doesnt have namespaces
+
+var greet = 'hello'
+var greet = 'hola'
+
+// both overiding each other
+// need ocntainer for each greeting - can achieve this with objects 
+// to prevent this collission 
+
+var english = {}
+var spanish = {}
+
+english.greet = 'hello'
+spanish.greet = 'hola'
+
+
+//--------------------------------------------//
+JSON AND OBJECT LITERALS
+
+JSON- javascript object notation
