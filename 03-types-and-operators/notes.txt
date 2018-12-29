@@ -29,5 +29,68 @@ a special function that is synitactially (written) differen
 generally take two parameters and return one result 
 
 eg var a = 3 + 4;
+var a = 3 > 4;
 
-+ is an operator which is actually a function  
++ and > is an operator which is actually a function  
+
+//---------------------------------------//
+OPERATOR PRECEDENCE AND ASSOCIATIVITY 
+
+precedence- functions are called in order of precedence 
+higher precedence wins 
+associativity- what order an operator gets called in (left to right or right to left )
+
+var a = 3 + 4 * 5;
+console.log(a)
+
+good link for this mdn operator precedence which has a table of operator precedence 
+the one with the bugger number gets called first 
+* is 14
++ is 13 
+
+
+var a = 2, b =3, c =4;
+a = b = c;
+
+the answer is 4
+= assignment operator has right to left associativity meaning that 
+goes to the right first and call (b = c) first  
+return is 4 this si what it (b = c) evaluates to - it is a function that returns a value 
+
+
+(3+4) * 5
+
+() has 19 in precedence rule
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+//---------------------------------------//
+Coercion
+
+coercion- converitn a value from one type to another
+happpens often in js because it is dynamically typed
+console.log('1' + 2)
+
+it coerces the 2 to a '2' and puts them together
+
+//---------------------------------------//
+Comparison Operators
+console.log(3 < 2 < 1)      // returns true 
+
+less than operator is left to right associativity - the one to left gets run first
+
+3 < 2 returns false 
+false < 1
+
+what does an operator try to do when i give it a value that it doesnt expect?
+its going to try coerce it to a number 
+false becomes (Number(false)) 0 
+
+NaN not a number - not a primitive type but can treat it as one 
+
+Coercion is nice but can be dangerous 
+
+"3" == 3 // true- it will coerce if it can 
+
+null and undefined dont coerce to 0 for comparison but do for other circumstances
+eg null < 1 will return true  - causes confusion 
