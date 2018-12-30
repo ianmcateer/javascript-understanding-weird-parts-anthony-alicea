@@ -100,6 +100,597 @@ spanish.greet = 'hola'
 
 
 //--------------------------------------------//
+//--------------------------------------------//
 JSON AND OBJECT LITERALS
 
-JSON- javascript object notation
+JSON- javascript object notation 
+
+xml used to be popular 
+json- properties wrapped in quotes
+
+const objectLiteral = {
+    firstname: 'Mary',
+    isAProgrammer: true
+}
+
+console.log(JSON.stringify(objectLiteral))
+
+jsonValue = JSON.parse('{
+    "firstname" : "mary",
+    "isAProgrammer" : true
+}')
+
+//--------------------------------------------//
+FUNCTIONS AND OBJECTS
+
+first class functions - they are first class because they are objects
+and can be assigned to variables, pass them around,create them on the fly
+
+a function is a special type of object
+can attach properties and methods to a function
+
+a function can be anonymous (doesnt have a name)
+it is invokable 
+its code is one of the properties of that object
+that code invokabe by ()
+
+function greet (){
+    console.log('hi')
+}
+
+greet.language = 'english'
+console.log(greet.language)
+
+//--------------------------------------------//
+FUNCTION STATEMENTS AND FUNCTION EXPRESSIONS
+
+expression- a unit of code that results in a value 
+that value doesnt have to save inside a variable 
+
+var a;
+a = 3;  this is an expression which evaluated to 3 
+
+1 + 2
+didnt do anything with the return value of 3
+
+a statement on the otherhand eg an if statameent 
+inside the parentheses you put an expresison bc that results in a value 
+but the if statement itself is a statement it just does work
+doesnt return anything 
+
+function statement..
+
+function greet() {
+    console.log('hi')
+}
+
+it doesnt result ina value its just a statement 
+doesnt return a value until the function is executed
+but does get hoisted during creation phase and is available ahead of time 
+can call it before you declare it 
+still an object
+
+function expression...
+var anonymousGreet = function (){
+    console.log('hi')
+}
+
+might look strange
+functions are objects - so creating an object on the fly and setting it 
+equal to this variable so this variable will contain a function object 
+the funciton is ananymous 
+
+you end up with a function object so it results in a value 
+
+the variable is already pointing to where it lives
+
+var greet = function(){
+        console.log('hello')
+}
+
+in execution phase this statement results in a function object 
+being created - it retrns an object 
+
+for a funciton statement the funciton is placed into memory in creation phase 
+so execution phase when line reached it just says i know you are already there
+just running the code
+
+function expressions dont get hoisted 
+
+greet()
+var greet = function(){
+        console.log('hello')
+}
+
+will this work?
+no in creaiton phase sees a variable greet 
+and sets variable to undefined 
+then runs code
+sees greet() sees it in memroy but it is set to undefined 
+
+A FUNCTION IS AN OBJECT 
+A FUNCTION EXPRESSION CREATES A FUNCTION OBJECT ON THE FLY
+
+CAN PASS A FUNCTION TO A FUNCTION 
+
+function log(a){
+    a()
+}
+
+log(function(){
+    console.log('hi')
+})
+
+//--------------------------------------------//
+BY VALUE V BY REFERENCE
+
+say we have a primitve value and set a vraible a equal to it
+
+then we set another variable b = a
+or maybe pass a to a function 
+
+if its a primtiive value then b points to a new addrss a new location 
+in memory and a copy is placed into that spot in memory 
+
+so if a is 3 and then b = a, b will point to 3 but a copy 
+this approach is called by value 
+
+BUT IF HAVE AN OBJECT 
+if set a to an object still get a location in memory which knows where that objetc lives
+but when b is set = a that new variable b insteadof getting a new location 
+simply points to the same location in memory a does 
+
+both a and b have same value they look at the same place in memory
+this is caled by reference 
+all objects interact by reference 
+
+by value (primitives)
+
+var a = 3;
+var b;
+b = a;
+a = 2;
+
+a will be 2 and b will be 3
+the = operator creates a new spot in memory forb copies that value 
+from a and sets that value
+but they will be copies of each other
+so after fact can change a and wont affect b 
+
+by reference (all objects (including funcitons))
+var c = {greeting: 'hi'};
+var d;
+
+d = c;
+c.greeting = 'hello'
+
+the = operator sees these are objects so rather than setting up d with new memory space 
+it simply points d to same address that c points to 
+they arent copies of each other they are simply pointing to same spot in memory
+so if mutate c then you mutate d
+
+mutate(to change something) - immutable means it cant be changed
+
+also passing an object to a funciton means they are being passed by reference 
+
+
+but equals operator sets up new memory space (new address)
+c = {greeting: 'howdy'}
+= operator saw this is new object created on the fly not one already existed
+set up spot for it to live 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+OBJECTS, FUNCTIONS AND 'this'
+
+when funcion invoked an execution contetx created and put on execution stack
+think of execution context as focusing on code part of the object
+each context has a variable environemnt, a reference to its outer enviornemnt 
+and how to look out the scope chain, and we also know that the js engine
+every time new execution context created it gies us this vairbale 
+called 'this'- will point to a different object depending on how the function 
+is invoked
+
+THE VALUE OF THIS DEPENDS ON WHEN THE FUNCTION WAS INVOKED NOT WHEN
+IT WAS CREATED 
+
+some scenrios....
+
+this is available on global execution context level- shows you the window 
+object 
+
+function a {
+    console.log(this)
+}
+a()
+
+a() means run the code property and creates the execution context - creates the keyword this 
+the keyword this is also the window object so still points to the 
+global object 
+
+function a {
+    console.log(this)
+    this.newvariable = 'hello'
+}
+a()
+
+will attach the variable to the global object 
+can cause alot of problems 
+
+what circumstance would you use this vairbale inside a function???
+
+var c = {
+    name: 'the c object',
+    log: function () {
+        this.name = 'updated c object',
+        console.log(this)
+    }
+}
+
+c.log()
+
+'this' will point to the c object 
+can mutate the object that contains me if i am a method on the object 
+
+some people think this is wrong and a bug in js...
+
+var c = {
+    name: 'the c object',
+    log: function () {
+        this.name = 'updated c object',
+        console.log(this)
+
+        var setName = function(newname){
+            this.name = newname;
+        }
+
+        setname('updated again the c object')
+        console.log(this)
+    }
+}
+
+you would expect the this keyword would still point to containing object 
+name would be set on the global object!!!!!
+this internal function - the this keyword points to the 
+global object 
+
+what can we do to make sure referring to the right object?????
+legacy way...
+
+var c = {
+    name: 'the c object',
+    log: function () {
+        var self = this;
+        self.name = 'updated c object',
+        console.log(self)
+
+        var setName = function(newname){
+            self.name = newname;
+        }
+
+        setname('updated again the c object')
+        console.log(this)
+    }
+}
+
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+ARRAYS- COLLECTIONS OF ANYTHING 
+
+a collection which holds many things inside of it
+var arr = new Array()
+var arr = [];
+
+js arrays can hold a list of anything - its dynamically typed 
+can mix and match 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+ARGUMENTS AND SPREAD 
+
+next version of js wont use args as much bc of new spread
+
+when new execution context is created 
+sets this keyword and also 'arguments'
+this contains a list of all the parameters you pass to a function
+arguments are theparameters you pass to a function 
+
+function greet(firstname, lastname, lnaguage) {
+    console.log(firstname, lastname, language)
+    console.log(arguments)
+}
+greet()
+// undefined - hoisting takes care of parameters for me 
+even though didnt give it any values 
+
+arguments- a list of values of the parameters that youve passed
+looks like an array but they areitalissed brackets
+it is array-like it acts like an array but isnt exactly a js array
+it doesnt have all the features of a js array
+can check its length 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+FUNCTION OVERLOADING
+
+js doesn't have function overloading like other languages
+in other langauges can have a function of same name that has different number 
+of parameters 
+
+function greet (firstname, lastname, language){
+    if (langauge === 'en') {
+        console.log('hello ' + firstname + ' ' + lastname)
+    }
+    if (langauge === 'es') {
+        console.log('hola ' + firstname + ' ' + lastname)
+    }
+}
+
+function greetEnglish(firstname, lastname) {
+    greet(firstname, lastname, 'en')
+}
+
+greetEnglish('john', 'doe' )
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+SYNTAX PARSER 
+if sees valid syntax keeps on going 
+return;
+
+automatic semicolon insertion 
+semicolons optional 
+
+parser can automatically inject semicolon where it expects one to be 
+should always put your own semicolons 
+
+
+WHITESPACCE
+invisible characters that cerate literal space in written code
+make your code more readable 
+carriage returns, tabs, spaces
+
+js liberal about what it allows for whitespace 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+IIFEE Immediately Invoked Function Expressions 
+
+var greetFunc = function(name){
+    console.log('hello ' + name)
+}
+greetFunc()
+
+function object has code property you can invoke on the fly
+
+but could set a value and invoke it at the point you create it 
+//IIFE
+var greeting = function(name){
+    console.log('hello ' + name)
+}('ian');
+
+greeting contains a string now which is the result of the function
+
+moreinteresting is a standalone IIFE
+
+(function(){
+    var greeting = 'hello'
+    console.log(greeting)
+})();
+
+parentheses is an oeprator - only use them with expressions
+its the grouping operator
+
+what about the execution stack??
+in global execurion context sees the ()and creates the function
+object in memory and its anonymous its just this object that has
+this code in it 
+its sees the invoking () and pushes new execution context and 
+code is run inside that function 
+that var greeting is sitting inside that execution context 
+not inside the global execution context 
+
+makes a useful approach to writing code 
+
+var greeting = 'holo';
+(function(){
+    var greeting = 'hello'
+    console.log(greeting)
+})();
+
+by wrappig code inside IIFEE ensured code will not be interfered by 
+any other code- my code is safe
+
+alot of libraries use this - wrap all their code in an IIFE
+
+what if wanted to add smth to global object inside the IIFE?
+just pass it inside the IIFE
+
+function(global, name) {
+    var greeting = 'hello';
+    console.log(greeting + ' ' + name)
+}(window, 'john')
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+UNDERSTANDING CLOSURES
+
+function greet(whattosay){
+    return function(name){
+        console.log(whattosay + ' ' + name)
+    }
+}
+
+so have a function that returns a function which i can then 
+invoke again- because functions are objects can return it as
+a value 
+
+greet('hi')('tony');
+
+var sayHi = greet('hi');
+sayHi('tony')
+
+how does that sayHi function know the whattosayvariable?
+when greet function called and is over its popped off the execution stack
+yet when i call the returned function how does it know what 
+whattosay is??? it still have the proper value somehow
+
+its possible bc of closures
+
+global execution context created
+greet function invoked
+the vaiable thats passed to it is sitting in its variable enviornment 
+this variable is whattosay and = 'hi'
+after the return of the function greet's execution context is finished 
+it gets popped off the stack its gone 
+every execution context has space in memory where variables and functions
+created inside of it live 
+what happens to that memory space when the execution context goes away??
+under normal circrumsatnces the js engine will clear it out with a process
+called garbage collection but at the moment the execution context finishes
+the memory space is still there its still hanging around in memory 
+
+so back to global execution context sayHi function is executed 
+its an anonymous function 
+a new execution context gets created and passed the name variable tony 
+but when hit console.log( and sees whattosay what does the js engine do?
+
+it goes up the scope chain looking in its outer lexical enviornment 
+to look for the variable - the sayHi execution context still has a reference 
+to the variables, the mmeory space of its outer enviornment 
+
+think of this refernce as a backpack
+
+in a way we say the execution context has closed in its outer
+variables it would normally have reference to anyway - a closure
+
+it isnt something you create - 
+they are a feature of the program language 
+
+
+function buildFunctions () {
+    var arr =[]
+
+    for (var i = 0; i < 3; i++) {
+        arr.push(
+            function(){
+                console.log(i)
+            }
+        )
+    }
+    return arr
+}
+
+
+var fs = buildFunctions();
+fs[0]()
+fs[1]()
+fs[2]()
+
+// 3
+// 3
+// 3
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+FUNCTION FACTORIES
+
+function makeGreeting(language){
+    return function(firstname, lastname) {
+        if (language === 'en'){
+            console.log('hello ' + firstname + ' ' + lastname)
+        }
+
+        if (language === 'es'){
+            console.log('hola ' + firstname + ' ' + lastname)
+        }
+    }
+}
+
+var greetEnglish = makeGreeting('en');
+greetEnglish('john','doe');
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+CLOSURES AND CALLBACKS
+if using setimeout using closure
+
+function sayHiLater(){
+    var greeting = 'hi';
+
+    setTimeout(function(){
+        console.log(greeting)
+    }, 3000);
+}
+
+sayHiLater();
+
+settimeout goes off outside in browser counts and waits and then when 3000 ms over 
+drops an event that says my timeout has finsihed and engine asks are there any functions 
+listening- it finds one and runs this anonymous function - but greeting doesnt exist inside function
+goes up the scope chain and it has a closure over this variable 
+so thanks to closure it still has access to greeting 3s later 
+
+callback function- a function you give to another function to be run when the other function 
+is finished  so it calls back another function 
+
+
+function tellMeWhenDone (callback){
+    var a = 1000;   //some work
+    var b = 2000;   //some work
+
+    callback()
+}
+
+tellMeWhenDone(function(){console.log('i am done' )})
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+CALL, APPLY AND BIND
+
+in exeuction context have variabe enviornment, 'this' and reference to outer enviornment 
+it would be nice to contorl what the this variable ends up being when the execution context gets created 
+js has a way to do just that - call apply and bind 
+
+all functions in js get access to special methods
+they have acess to call, apply and bind
+
+var person ={
+    firstname: 'john',
+    lastname: 'doe',
+    getFullName: function(){
+        var fullname = this.firstname + ' ' = this.lastname;
+        return fullname;
+    }
+}
+
+
+var logname = function(lang1, lang2){
+    console.log('logged: ' + this.getFullName());
+}
+
+logName();
+
+this will fail bc the this keyword will be pointing to the global object 
+
+var logPersonName = logName.bind(person)
+
+.bind() pass to it whatever object you want to be the 'this' variable when it runs 
+bind returns a new function 
+
+
+OR COULD DO THIS...
+var logname = function(lang1, lang2){
+    console.log('logged: ' + this.getFullName());
+}.bind(person)

@@ -1,0 +1,20 @@
+<html>
+  <head> </head>
+  <body>
+    <script>
+      function tellMeWhenDone(callback){
+        setTimeout(function () {
+          console.log('timer- timeout finished')
+        }, 3000)
+        callback()
+      }
+
+      tellMeWhenDone(function(){
+        console.log('callback- i am done')
+      })
+    </script>
+  </body>
+</html>
+
+// callback - i am done
+// timer - timeout finished 
