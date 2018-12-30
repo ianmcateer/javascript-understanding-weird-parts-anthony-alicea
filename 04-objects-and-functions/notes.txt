@@ -694,3 +694,81 @@ OR COULD DO THIS...
 var logname = function(lang1, lang2){
     console.log('logged: ' + this.getFullName());
 }.bind(person)
+
+call invokes the function- pass to call what the this keyword should point to  
+call doesnt create a copy- just executes it 
+apply does the same thing  BUT wants an array of parameters rather than normal list 
+array might be more useful under some circumstances eg mathematics 
+
+logName.call(person)
+
+logName.apply(person, ['en', 'es'])
+
+when would you really use this??
+function borrowing 
+
+var person2 = {
+    firstname: 'jane',
+    lastname: 'doe'
+}
+
+person.getFulllname.call(person2)
+
+can grab methods from other objects and use them
+
+function currying 
+with bind creating new copy but what happens if pass parameters to it??
+
+function multiply(a, b){
+    return a * b;
+}
+
+ dont care about the this keyword in this case, but am going to give it a parameter value 
+ this set sthe permanent values of the a and b parameters when the copy is made
+ so a will always be a 2 in this copy of the function
+
+var multiplyByTwo = multiply.bind(this, 2)
+multiplyByTwo(5)
+
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+FUNCTIONAL PROGRAMMING 
+ having first class functions means can implement functional PROGRAMMING
+ where we think and code in terms of functions 
+
+ var arr1 = [1,2,3]
+ console.log(arr1)
+ var arr2 = []
+ for (let i = 0; i < arr1.length; i++){
+     arr2.push(arr1[i] * 2)
+ }
+
+ console.log(arr2)
+
+ can put work into functions 
+
+ function mapForEach(arr, fn) {
+     var newArr= [];
+     for (let i = 0; i< arr.length;i++){
+         newArr.push(
+             fn(arr[i])
+         )
+     };
+     return newArr;
+ }
+
+ var arr2 = mapForEach([1,2,3], function (arrayItem) {
+     return arrayItem * 2
+ })
+
+  var arr3 = mapForEach([1,2,3], function (arrayItem) {
+     return arrayItem > 2
+ })
+
+ look at underscore library - functional programming helpers
+ look at development version bc of the comments 
+
+ lodash extra features - underscore came along first 
+ power of an open source education 
