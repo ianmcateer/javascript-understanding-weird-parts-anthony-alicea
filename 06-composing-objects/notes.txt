@@ -1,0 +1,232 @@
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+BUILDING OBJECTS 
+
+we saw literal syntax but other ways of building objects as well as setting prototype
+
+FUNCTION CONSTRUCTORS, NEW AND THE HISTORY OF JAVASCRIPT
+
+java developers used to this...
+
+var john = new Person();
+
+javascript doesnt have classes 
+js needed a way for marketing to create objects like this
+this is one approach which isnt that bad but does have some problems 
+
+function Person() {
+    this.firstname = 'john'
+    this.lastname = 'doe'
+}
+
+var john = new Person()
+console.log(john)
+
+so not calling the funciton putting the new keyword in front of it 
+what just happened??
+the new keyword is an operator so something special happens
+1- an empty object is created 
+2- it invokes the function - execution context - in case of new keyword this variable points to
+this new empty object in memory 
+3- returns the object automatically when execution finished (would normally return undefined)
+4- sets the prototype of that empty object to the prototype property of the function you then call
+
+
+if returned something else thats what would get returned from the function 
+but if dont return anything gives back object that was set to the this variable 
+
+THIS IS CALLED A FUNCTION CONSTRUCTOR - a normal function used to construct objects 
+
+what if wanted to create more people???
+function constructors: they are just functions 
+
+function Person(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+}
+
+var jane = new Person('Jane', 'Doe')
+
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+FUNCTION CONSTRUCTORS AND .PROTOTYPE
+
+how do we set the prototype??
+when use function constructor already set the prototype for you 
+jane.__proto__ will see that it is the empty Person object
+
+a function is an object
+some properties dont really htink about eg name can be anaonmymous
+has a code property that is invocable by ()
+also has a prototoype property which starts its like as an empty object
+
+unless you use the function as a function constrcutor it just hangs out 
+it is never used 
+only used by the new operator
+
+THE PROTOTYPE PROPERTY ON A FUNCTION IS NOT THE PROPRTYPE OF THE FUNCTION,
+ITS THE PROTOTYPE OF ANY OBJECT CREATED IF YOU ARE USING THE FUNCTION AS A FUNCTION
+CONSTRUCTOR 
+
+Person.prototype.getFullName = function(){
+    return this.firstname + ' ' + this.lastname;
+}
+
+so any objects you create using the function as a funciton constructor and using the new keyword 
+means that the object created not only has the proeprties and methods 
+attached inside the function but it has a prototype (__proto__) which is the .prototype property
+of that constructor function 
+
+so the .prototype property of the function constructor points to john.__proto__
+
+often methods sitting on the prototoype and properties inside the constructor itself
+BECAUSE if added method to every object then every object gets a copy of the same function
+but if add it to the prorotoype only have the method once so more efficiency 
+
+DANGEROUS ASIDE: NEW AND FUNCTIONS 
+still just a function
+if forgot to put on enw keyword execute the function and add 
+properties to the global object 
+returns undeifned 
+
+conventtion: any funciton intended for funciton constructor use as a capital letter
+eg Person 
+
+new ways coming to create objects in js 
+
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+BUILT IN FUNCTION CONSTRUCTORS
+
+var a = new Number(3)
+a is actually an object 
+
+new String()
+new Date()
+
+DANGEROUS ASIDE 
+var a = 3;
+var b = new Number(3)
+
+a == b; //true bc == coerces types 
+a === b //false bc a is a primitive and b is an object created using object constructor 
+
+better ot use literals - the actual primtivie values 
+
+look at moment.js for dates 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+ARRAYS DANGEROUS ASIDE 
+
+arrays are objects 
+
+var arr = ['john','jane','jim]
+
+for (var prop in arr){
+    console.log(prop, arr[prop])
+}
+
+0: John,
+1: Jane,
+2: Jim
+
+0 1 and 2 are the property names 
+
+BUT might have some framework which adds some funcitonality to ararys 
+Array.proptpype.myCustomFeature = 'cool'
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+Object.create and Pure Prototypal Inheritance 
+
+many prefer pure prototypal inheritance - doesnt try to mimic other langauges
+all browsers have now built in Object.create
+
+var person = {
+    firstname: 'default',
+    lastname: 'default'
+    greet: function () {
+        return `hi ${this.firstname}`
+    }
+}
+
+var john = Object.create(person)
+console.log(john)
+
+what does this create??
+an object and its __proto__ points to the person object 
+
+so object.create() creates an empty object which its prototype pointing to at whatever you pass in 
+to .create( )
+
+to hide default values :
+
+john.firstname = 'John'
+john.lastname = 'Doe'
+
+this is pure prototypal inheritance 
+simply create an object and use that object as the prototype for other objects 
+
+POLYFILL; code that adds a feature that the engine may lack 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+ES6 AND CLASSES
+
+classes in other languages are popular- way of defining an objects
+js doesnt have classes- next version it will but in a differet way
+
+a js class defines an obejct 
+
+class Person {
+    constructor(firstname, lastname){
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    greet() {
+        return 'hi ' + firstname;
+    }
+}
+
+var john = new Person('john', 'doe')
+
+the constructor acts like the constructor functions we have seen in that you can preset 
+its value can pass firstname and lastname
+
+the this keyword will point to the instance of that new object thats being created
+
+can also have methods like greet thata re sitting right there inside the class 
+and its just available 
+
+in other languages class is not an object its a defenition  or blueprint 
+but js even though its adding class keyword its still just an object
+
+you are creating new objects from that 
+
+but he doesnt like the new keyword - still thinks its better than a consftructor function 
+how do you set the prototype?
+
+use the keyword extends 
+
+class InformalPerson extends Person {
+     constructor(firstname, lastname){
+         super(firstname, lastname);
+    }
+    greet(){
+        return 'yo ' + firstname;
+    }
+}
+
+extends sets the prototoype (__proto__)
+in constructor can call super which calls the constructor of the object that 
+is my prototype and can overide or hide like with Object.create()

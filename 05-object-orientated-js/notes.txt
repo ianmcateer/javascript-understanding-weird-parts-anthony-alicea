@@ -1,0 +1,139 @@
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+OBJECT ORIENTATED JAVASCRIPT AND PROTOTYPAL INHERITANCE
+
+classical v prototypal inheritance
+
+inheritance: one object gets access ot the propertoes and methods of another object
+
+classical inheritance:
+talking about whats currently best known and popular- in java, c sharp
+a way of sharing proeprties and object thats classical 
+very verbose
+    friend
+    protected
+    private
+    interface 
+
+prototypal inheritance:
+much simpler, flexible, extensible and easy to understand 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+UNDERSTANDING THE PROTOTYPE
+
+js implements prototypal inheritance 
+this concept of the prototype
+
+have obj in memory, this obj has a property called prop1
+
+obj.prop1
+
+js also adds hidden propeties and methods to things that we dont normally 
+interact with directly 
+
+all objects in javascript have a prototype property (call it proto {})
+this is simply a reference to another object
+
+the object property that we will call proto, thats its prototype 
+thats the object its going to grab to get its properties and methods as well
+
+so if this other object (proto {}) has some other property say prop2
+if call obj.prop2 the dont operator first looks for prop2 on obj itself
+if doesnt find it goes to __proto__ and looks for that property name there 
+so it looks lke prop2 is on our obj but its actually on our objects prototype 
+
+that proto object can also point to another proto object and so on...
+keeps looking down the prototype chain - scope chain looking for where we have accessto a variable
+ this is about looking for where we have access to a property or method amongst 
+ a sequence of objects connected by this proto property and its hidden 
+
+ if have another object obj2 it can point to the same object as its prototype 
+ so they can share all the same prototype 
+ so obj2.prop2 will return the exact same property 
+
+ var person = {
+     firstname: 'default',
+     lastname: 'default',]
+     getFullName: function (){
+         return this.firstname + ' ' + this.lastname;
+     }
+ }
+
+ var john = {
+     firstname: 'john',
+     lastname: 'doe'
+ }
+
+ // dont do this ever!!!
+ //this is to make sure you never type __proto__
+ john.__proto__ = person;
+
+ john now inherits from person 
+ so if i were to access a property or method on john that
+ doesnt exist on john it will go to person to try to find it 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+EVERYTHING IN JS IS AN OBJECT OR A PRIMITIVE 
+
+all object have a prototype except the base object 
+
+var a = {}
+var b = function(){}
+var c = []
+
+a.__proto__
+//OBJECT - the base object - the bottom of the prototype chain 
+
+c.__proto__.__proto__ points to the base object 
+
+//--------------------------------------------//
+//--------------------------------------------//
+//--------------------------------------------//
+REFLECTION and EXTEND 
+an object can look at itself, listing and changing its properties and methods 
+
+ var person = {
+     firstname: 'default',
+     lastname: 'default',]
+     getFullName: function (){
+         return this.firstname + ' ' + this.lastname;
+     }
+ }
+
+ var john = {
+     firstname: 'john',
+     lastname: 'doe'
+ }
+
+ john.__proto__ = person;
+
+ for (var prop in john ) {
+     console.log(prop + ' ' + john[prop])
+ }
+
+ for in actually reached out and grabbed every proerty and method not just on the object 
+ but also on the objects prototype 
+
+ what ifjust want to knnow whats on the object itself???
+
+for (var prop in john ) {
+      if (john.hasOwnProperty(prop){
+            console.log(prop + ' ' + john[prop])
+      }
+ }
+
+ john.hasOwnProperty will tell if the object really has that property 
+ so can reflect on the john object 
+
+
+ _.extend(john,jane,jim) composes or combines these objects- takes all their properties and methods
+ and adds them directly to john for me 
+
+ this physcially places the properties on the john object 
+
+ next version of js has extends 
